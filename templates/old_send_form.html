@@ -1,0 +1,28 @@
+<div class="card-body bg-light">
+    <div class = "container">
+        <form id="test" method="POST" action="#">
+            <div class="form-group">
+                <div class="form-row">
+                    <label for="appre">AP Prefix:</label>
+                    <input type="text" id="appre" name="appre">
+                </div>
+                <div class="form-row">
+                    <label for="antap">Antal AP:</label>
+                    <input type="text" id="antap" name="antap">
+                </div>
+                <div class="form-row">
+                    <label for="apstart">AP StartNumber:</label>
+                    <input type="text" id="apstart" name="apstart">
+                </div>
+                <div class="form-row">
+                    <label for="aploc">AP Location:</label>
+                    <input type="text" id="aploc" name="aploc">
+                </div>
+                <button id='btn' type="submit" form="test" value="Submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+        
+    </div>
+</div>
+
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/main.css') }}">

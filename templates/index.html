@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block main %}
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            // Connect to the Socket.IO server.
+            // The connection URL has the following format, relative to the current page:
+            //     http[s]://<domain>:<port>[/<namespace>]
+            var socket = io();
+
+            // Event handler for new connections.
+            // The callback function is invoked when a connection with the
+            // server is established.
+            socket.on('connect', function() {
+                socket.emit('my_event', {data: 'I\'m connected!'});
+            });
+
+            
+
+            // Test response received from server is handled here
+            socket.on('test_response', function(msg) {
+                $('#log').prepend('<br>' + $('<div/>').text(msg.data).html());
+            })
+            socket.on('enable_btn', function(msg) {
+                $('#log').prepend('<br>' + $('<div/>').text(msg.data).html());
+                document.getElementById('btn').disabled = false;
+            })
+
+
+            // Handlers for the different forms in the page.
+            // These accept data from the user and send it to the server in a
+            // variety of ways
+            $('form#test').submit(function(event) {
+                document.getElementById('btn').disabled = true;
+                //socket.emit('test_message', {data: 'Here comes the configs for the AP:s'});
+                socket.emit('test_message', {appre: $('#appre').val(), antap: $('#antap').val(),apstart: $('#apstart').val(), aploc: $('#aploc').val()});
+                return false;
+            });
+        });
+    </script>
+
+
+    <div class="container">
+        <div class=" text-center mt-5 ">
+            <h2>Provisionering av Cisco 9120ax Accesspunkter</h2>
+            <p>Async mode is: <b>{{ async_mode }}</b><br></p>   
+        </div>
+
+        <div class="container">
+                        <div class ="row h-100 justify-content-center align-items-center">
+                            <div class="col-10 col-md-8 col-lg-6">
+                            <form class="form-horizontal" id="test" method="POST" action="#">
+                                <div class="form-group">
+                                    <label for="appre">AP Prefix (ex. SA-):</label>
+                                    <div class="col-sm-10">
+                                            <input type="text" id="appre" name="appre">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="antap">Antal AP (ex. 20):</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="antap" name="antap">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="apstart">AP Startnummer (ex. 1):</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="apstart" name="apstart">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="aploc">AP Placering (ex. Sandagymnasiet (Inga mellanslag)):</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="aploc" name="aploc">
+                                    </div>
+                                </div>
+                            </form>
+                            <br>
+                            <button id='btn' class="btn btn-primary btn-customized" type="submit" form="test" value="Submit">Submit</button>
+                            </div>
+                        </div>
+              
+        </div>
+    </div>
+
+   
+
+    <div class="container">
+        <div class=" text-center mt-5 ">    
+            <h3>Log:</h3>
+            <div id="log"></div>
+        </div>
+    </div>
+{% endblock %}

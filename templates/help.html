@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block main %}
+    
+    <div class="container">
+        <div class=" text-center mt-5 ">
+            <h2>Instruktion för provisionering av Cisco 9120ax accesspunkter </h2>
+            <br>
+        </div>
+        <div class=" text-wrap mt-5 ">
+            <p>
+            <ul>1. Angevilket prefix i ap-namnet som skall användas, ex. ED-</ul>
+            <ul>2. Ange antal accesspunkter som skall konfigureras, ex. 14</ul>
+            <ul>3. Bestäm vilket löpnummer som vi ska börja med, ex. 21</ul> 
+            <ul>4. Bestäm vilken placering (location) som skall användas, inga mellanslag, ex. Labbet-IT-avd</ul>
+            <ul>5. Koppla in accesspunkterna i switch "jkp-it-apconf-poe" (samma antal som angavs vid punkt två).</ul>
+            <ul>6. Klicka på "Submit" och vänta på att scriptet skall slutföras (har Accesspunkterna inte samma image som controllern så vänta tills uppdateringen är klar).</ul>
+            <ul>7. AP:n som sitter i switchport 1 kommer att få det lägsta löpnummret, tex. ED-021. Port 2 näst lägst, ED-022 osv.</ul>
+            <ul>8. Sätt eventuellt etiketter på AP:s. Vänta tills scriptet är klart (kolla ev. log så allt gick bra). AP:orna är nu konfigurerade med följande: Namn, Location, Primary Controller och Secondary Controller.</ul>
+            <ul>9. Accesspunkterna dyker upp Cisco Prime och är klara för att placeras på karta.</ul>
+            </p>
+            <p class="fw-bold">
+                Accesspunkterna behöver inte vara fabriksåterställda för att kunna provisioneras via detta verktyg.
+            </p>
+        </div>
+
+        
+    </div>
+
+   
+
+    
+{% endblock %}
