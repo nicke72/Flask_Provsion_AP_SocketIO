@@ -31,39 +31,20 @@
             // variety of ways
             $('form#test').submit(function(event) {
                 document.getElementById('btn').disabled = true;
-                const cb = document.querySelector('#accept');
-                console.log(cb.checked);
-
- 
-                if (cb.checked == true) {
-                    var prefixField = document.getElementById('appre').value;
-                    var outputText ="";
-                    
-                    var intAntalField = parseInt(document.getElementById('antap').value,10);
-                    var intStartField = parseInt(document.getElementById('apstart').value,10);
-                    var totalAP = intAntalField + intStartField;
-                    
-                    do {
-                        outputText += prefixField + intStartField + ",";
-                        outputText += "\n";
-                        intStartField++;
-                        }
-                    while (intStartField < totalAP);   
-
-                    const csv = outputText.replace(/,\s*$/, ""); //Delete last comma.. 
-                    //console.log(csv);
-                    var hiddenElement = document.createElement('a');
-                    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
-                    hiddenElement.target = '_blank';
-                    hiddenElement.download = 'etikett.csv';
-                    hiddenElement.click();
-                }
-
-                
-                //Uncomment for Flask to get message and begin processing.
                 //socket.emit('test_message', {data: 'Here comes the configs for the AP:s'});
-                //socket.emit('test_message', {appre: $('#appre').val(), antap: $('#antap').val(),apstart: $('#apstart').val(), aploc: $('#aploc').val()});
+                if( $('#docsv').is(':checked')) {
+
+                    var textToSave = 'this is a test';
+                    var hiddenElement = document.createElement('a');
+                    hiddenElement.href = 'data:attachment/text,' + encodeURI(textToSave);
+                    hiddenElement.target = '_blank';
+                    hiddenElement.download = 'myFile.txt';
+                    hiddenElement.click();
+                    
+                }
                 
+                
+                socket.emit('test_message', {appre: $('#appre').val(), antap: $('#antap').val(),apstart: $('#apstart').val(), aploc: $('#aploc').val(), docsv: "falskt" });
                 return false;
             });
         });
@@ -89,13 +70,13 @@
                                 <div class="form-group">
                                     <label for="antap">Antal AP (ex. 20):</label>
                                     <div class="col-sm-10">
-                                        <input type="number" id="antap" name="antap">
+                                        <input type="text" id="antap" name="antap">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="apstart">AP Startnummer (ex. 1):</label>
                                     <div class="col-sm-10">
-                                        <input type="number" id="apstart" name="apstart">
+                                        <input type="text" id="apstart" name="apstart">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -105,11 +86,10 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                <label for="accept">Do you want labels?</label>
+                                    <label for="docsv">Markera för att ordna etiketter:</label>
                                     <div class="col-sm-10">
-                                    <input type="checkbox" id="accept" name="accept" value="yes">
-                                    </div> 
-                                 
+                                        <input type="checkbox" id="docsv" name="docsv" value="doacsv">
+                                    </div>
                                 </div>
                             </form>
                             <br>

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session, url_for
+from flask import Flask, render_template, session, send_file, url_for, jsonify
 from flask_socketio import SocketIO, emit
 import logging
 import sys
@@ -151,6 +151,10 @@ def getCdpNei(startSuffix, startApNum, startLocation, startAntal):
                     socketio.emit('test_response',{'data': 'WLC output: ' + output})
    
 
+
+
+
+
 def background_job(data):
     """Example of how to send server generated events to clients."""
     
@@ -158,18 +162,21 @@ def background_job(data):
     print(f"Antal AP: {data['antap']}")
     print(f"AP Startnummer: {data['apstart']}")
     print(f"AP Location: {data['aploc']}")
+    
     startPrefix = str(data['appre'])
     startAntal= str(data['antap'])
     startApNum= str(data['apstart'])
     startLocation = str(data['aploc'])
     
-    getCdpNei(startPrefix, startApNum, startLocation, startAntal)
+
+    #For development, line below is commented!!!!
+    #getCdpNei(startPrefix, startApNum, startLocation, startAntal)
     
     socketio.emit('enable_btn',{'data': 'Done! Script is ready for next batch of AP:S'})
 
 
 
-@app.route('/')
+@app.route('/', methods = ['GET', 'POST'])
 def index():
     return render_template('index.html', async_mode=socketio.async_mode)
 
