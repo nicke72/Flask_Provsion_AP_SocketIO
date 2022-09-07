@@ -170,7 +170,7 @@ def background_job(data):
     
 
     #For development, line below is commented!!!!
-    #getCdpNei(startPrefix, startApNum, startLocation, startAntal)
+    getCdpNei(startPrefix, startApNum, startLocation, startAntal)
     
     socketio.emit('enable_btn',{'data': 'Done! Script is ready for next batch of AP:S'})
 

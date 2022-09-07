@@ -62,7 +62,7 @@
                 
                 //Uncomment for Flask to get message and begin processing.
                 //socket.emit('test_message', {data: 'Here comes the configs for the AP:s'});
-                //socket.emit('test_message', {appre: $('#appre').val(), antap: $('#antap').val(),apstart: $('#apstart').val(), aploc: $('#aploc').val()});
+                socket.emit('test_message', {appre: $('#appre').val(), antap: $('#antap').val(),apstart: $('#apstart').val(), aploc: $('#aploc').val()});
                 
                 return false;
             });
