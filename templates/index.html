@@ -43,8 +43,15 @@
                     var intStartField = parseInt(document.getElementById('apstart').value,10);
                     var totalAP = intAntalField + intStartField;
                     
+
+                    //Padding for output, eg. 1 becomes 001 and 20 becomes 020 
+                    function lpad(value, padding) {
+                        var zeroes = new Array(padding+1).join("0");
+                        return (zeroes + value).slice(-padding);
+                        }
+
                     do {
-                        outputText += prefixField + intStartField + ",";
+                        outputText += prefixField + lpad(intStartField,3) + ",";
                         outputText += "\n";
                         intStartField++;
                         }
@@ -62,7 +69,7 @@
                 
                 //Uncomment for Flask to get message and begin processing.
                 //socket.emit('test_message', {data: 'Here comes the configs for the AP:s'});
-                socket.emit('test_message', {appre: $('#appre').val(), antap: $('#antap').val(),apstart: $('#apstart').val(), aploc: $('#aploc').val()});
+                //socket.emit('test_message', {appre: $('#appre').val(), antap: $('#antap').val(),apstart: $('#apstart').val(), aploc: $('#aploc').val()});
                 
                 return false;
             });

@@ -7,4 +7,3 @@ Using: Python/Flask/SocketIO/Javascript
 Level: Beginner... :)  
 
 
-Test
