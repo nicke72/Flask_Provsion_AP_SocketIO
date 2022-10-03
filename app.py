@@ -63,7 +63,7 @@ def getCdpNei(startSuffix, startApNum, startLocation, startAntal):
         
         i=0
         for line in cdpNei:
-            if line['platform'] == config['AP_PLATFORM']:
+            if line['platform'].startswith(config['AP_PLATFORM_PRE']) and (line['platform'].endswith(config['AP_PLATFORM_SUF1']) or line['platform'].endswith(config['AP_PLATFORM_SUF2'])):
                 i=i+1
         print(i)
         socketio.emit('test_response',{'data': str(i) + ' AP:s connected of ' + str(cdps) })
@@ -77,7 +77,7 @@ def getCdpNei(startSuffix, startApNum, startLocation, startAntal):
 
     cleanDict = []
     for line in cdpNei:
-        if line['platform'] == config['AP_PLATFORM']:
+        if line['platform'].startswith(config['AP_PLATFORM_PRE']) and (line['platform'].endswith(config['AP_PLATFORM_SUF1']) or line['platform'].endswith(config['AP_PLATFORM_SUF2'])):
             temp = line['local_interface'][8:]
             line['local_interface'] = int(temp)
             cleanDict.append(line)
